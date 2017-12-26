@@ -34,18 +34,6 @@ public class DeviceConfigListFragment extends Fragment {
         public void onClick(View v){
             Intent intent = new Intent(getActivity(), AddManualDevice.class);
             startActivity(intent);
-            /*RpiLight l = new RpiLight();
-            l.Hostname = "test";
-            l.Port = 6600;
-            l.stored = true;
-            try{
-                l.IP = Inet4Address.getByName("192.168.178.95");
-            }catch (UnknownHostException e){
-                Log.e("Create RPI", e.getMessage());
-            }
-            strg.Put(l);
-            dataList.add(l);
-            adapter.notifyDataSetChanged();*/
         }
     }
     @Override

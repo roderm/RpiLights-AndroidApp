@@ -86,7 +86,7 @@ public class ConfigDevicesAdapter extends BaseAdapter{
 
         ((ImageView)convertView.findViewById(R.id.img_config_device)).setImageResource(R.drawable.ic_lightbulb);
         ((TextView)convertView.findViewById(R.id.title_config_device)).setText(light.Hostname);
-        ((TextView)convertView.findViewById(R.id.ip_config_device)).setText(light.IP.toString());
+        ((TextView)convertView.findViewById(R.id.ip_config_device)).setText(light.IP + ":" + light.Port);
         Button btn = (Button)convertView.findViewById(R.id.btn_config_device);
         btn.setText(light.stored ? "Remove" : "Add");
         btn.setOnClickListener(new ListButtonListener(rpiLights.get(position)));

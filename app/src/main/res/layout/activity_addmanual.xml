@@ -28,6 +28,7 @@
             android:layout_height="@dimen/editbox_height"
             android:inputType="number"
             android:hint="@string/port"/>
+
         <Button
             android:id="@+id/manual_save"
             android:layout_width="match_parent"

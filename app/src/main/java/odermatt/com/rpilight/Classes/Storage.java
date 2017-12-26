@@ -19,6 +19,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.logging.Handler;
 
+import odermatt.com.rpilight.Brightness;
+import odermatt.com.rpilight.State;
 import odermatt.com.rpilight.models.RpiLight;
 
 /**
@@ -54,7 +56,7 @@ public class Storage extends SQLiteOpenHelper{
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(SQLLightDefinition.LightDefinition.HOST, d.Hostname);
-        values.put(SQLLightDefinition.LightDefinition.IP, d.IP.toString());
+        values.put(SQLLightDefinition.LightDefinition.IP, d.IP);
         values.put(SQLLightDefinition.LightDefinition.PORT, d.Port);
 
         return db.insert(SQLLightDefinition.LightDefinition.TABLE_NAME, null, values);
@@ -87,9 +89,16 @@ public class Storage extends SQLiteOpenHelper{
             l.Hostname = cursor.getString(cursor.getColumnIndexOrThrow(SQLLightDefinition.LightDefinition.HOST));
             l.Port = cursor.getInt(cursor.getColumnIndexOrThrow(SQLLightDefinition.LightDefinition.PORT));
             l.stored = true;
-            l.IP = StringToInetAdresse(cursor.getString(cursor.getColumnIndexOrThrow(SQLLightDefinition.LightDefinition.IP)));
-
-
+            l.IP = cursor.getString(cursor.getColumnIndexOrThrow(SQLLightDefinition.LightDefinition.IP));
+            try{
+                l.connection = new Grpc(l.IP, l.Port);
+            }catch (Exception e){
+            }
+            /*try {
+                l.lightstate = l.connection.getState();
+                l.connection.ObservableForLight(l);
+            }catch (Exception e){
+            }*/
             items.add(l);
         }
         cursor.close();

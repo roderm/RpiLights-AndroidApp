@@ -26,10 +26,8 @@ public class AddManualDevice extends Activity {
             RpiLight l = new RpiLight();
             try{
                 l.Hostname = ((EditText)findViewById(R.id.manual_hostname)).getText().toString();
-                l.IP = strg.StringToInetAdresse(
-                        ((EditText)findViewById(R.id.manual_ipaddress)).getText().toString()
-                );
-                l.Port = Integer.getInteger(((EditText)findViewById(R.id.manual_port)).getText().toString());
+                l.IP = ((EditText)findViewById(R.id.manual_ipaddress)).getText().toString();
+                l.Port = Integer.parseInt(((EditText)findViewById(R.id.manual_port)).getText().toString());
             }catch (Exception e){
                 Log.d("Add-Manual", e.getMessage());
             }
@@ -42,8 +40,8 @@ public class AddManualDevice extends Activity {
                 return;
             }
 
-            if(l.Port != 0){
-                Toast.makeText(AddManualDevice.this, "Invalid IP-Address", Toast.LENGTH_SHORT).show();
+            if(l.Port == 0){
+                Toast.makeText(AddManualDevice.this, "Invalid Port can't be 0", Toast.LENGTH_SHORT).show();
                 return;
             }
             strg.Put(l);
